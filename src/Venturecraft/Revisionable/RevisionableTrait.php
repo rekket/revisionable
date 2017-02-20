@@ -272,6 +272,8 @@ trait RevisionableTrait
                 || class_exists($class = '\Cartalyst\Sentinel\Laravel\Facades\Sentinel')
             ) {
                 return ($class::check()) ? $class::getUser()->id : null;
+            }elseif (class_exists($class = '\Tymon\JWTAuth\Facades\JWTAuth')) {
+                 return ($class::getToken()) ? $class::parseToken()->toUser()->id : null;
             } elseif (\Auth::check()) {
                 return \Auth::user()->getAuthIdentifier();
             }
